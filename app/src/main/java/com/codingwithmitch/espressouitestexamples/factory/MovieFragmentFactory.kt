@@ -30,8 +30,6 @@ class MovieFragmentFactory : FragmentFactory(){
                 super.instantiate(classLoader, className)
             }
         }
-
-
 }
 
 
