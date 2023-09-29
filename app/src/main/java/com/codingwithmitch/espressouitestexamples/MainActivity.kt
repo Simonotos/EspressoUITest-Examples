@@ -1,11 +1,14 @@
 package com.codingwithmitch.espressouitestexamples
 
+import android.app.AlertDialog
+import android.app.Dialog
+import android.content.DialogInterface
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.widget.Button
+import android.widget.EditText
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import com.afollestad.materialdialogs.MaterialDialog
-import com.afollestad.materialdialogs.input.input
 
 
 class MainActivity : AppCompatActivity(){
@@ -23,17 +26,19 @@ class MainActivity : AppCompatActivity(){
     }
 
     private fun showDialog(){
-        MaterialDialog(this)
-            .show {
-                input (
-                    waitForPositiveButton = true,
-                    allowEmpty = false
-                ){ dialog, name ->
-                    setNameToTextView(name.toString())
-                }
-                title(R.string.text_enter_name)
-                positiveButton(R.string.text_ok)
+
+        val builder : AlertDialog.Builder = AlertDialog.Builder(this)
+        val inflater = LayoutInflater.from(this)
+        val dialogView = inflater.inflate(R.layout.dialog_name, null)
+
+        builder
+            .setMessage("Type your name")
+            .setView(dialogView)
+            .setPositiveButton(R.string.text_ok){ dialog, id ->
+                setNameToTextView(dialogView.findViewById<EditText>(R.id.etUserName).text.toString())
+                dialog.cancel()
             }
+            .create().show()
     }
 
     private fun setNameToTextView(name: String){
