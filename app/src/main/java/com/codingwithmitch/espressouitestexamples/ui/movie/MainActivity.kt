@@ -11,7 +11,6 @@ class MainActivity : AppCompatActivity() {
         supportFragmentManager.fragmentFactory = MovieFragmentFactory()
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
         init()
     }
 

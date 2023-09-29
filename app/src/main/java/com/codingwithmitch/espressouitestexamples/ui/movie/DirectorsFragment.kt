@@ -4,13 +4,15 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
+import android.widget.TextView
 import androidx.fragment.app.Fragment
 import com.codingwithmitch.espressouitestexamples.R
-import kotlinx.android.synthetic.main.fragment_directors.*
 
 class DirectorsFragment : Fragment(){
 
     private val directors: ArrayList<String> = ArrayList()
+    private lateinit var view: View
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -24,7 +26,8 @@ class DirectorsFragment : Fragment(){
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_directors, container, false)
+        view = inflater.inflate(R.layout.fragment_directors, container, false)
+        return view
     }
 
 
@@ -35,7 +38,7 @@ class DirectorsFragment : Fragment(){
     }
 
     private fun setDirectors(){
-        directors_text.text = stringBuilderForDirectors(directors)
+        view.findViewById<TextView>(R.id.directors_text).text = stringBuilderForDirectors(directors)
     }
 
     companion object{

@@ -4,13 +4,15 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
+import android.widget.TextView
 import androidx.fragment.app.Fragment
 import com.codingwithmitch.espressouitestexamples.R
-import kotlinx.android.synthetic.main.fragment_star_actors.*
 
 class StarActorsFragment : Fragment(){
 
     private val starActors: ArrayList<String> = ArrayList()
+    private lateinit var view: View
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -24,7 +26,8 @@ class StarActorsFragment : Fragment(){
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_star_actors, container, false)
+        view = inflater.inflate(R.layout.fragment_star_actors, container, false)
+        return view
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -34,7 +37,7 @@ class StarActorsFragment : Fragment(){
     }
 
     private fun setActors(){
-        star_actors_text.text = stringBuilderForStarActors(starActors)
+        view.findViewById<TextView>(R.id.star_actors_text).text = stringBuilderForStarActors(starActors)
     }
 
     companion object{
