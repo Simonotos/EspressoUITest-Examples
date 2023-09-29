@@ -1,10 +1,11 @@
 package com.codingwithmitch.espressouitestexamples
 
 import android.os.Bundle
+import android.widget.Button
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.afollestad.materialdialogs.MaterialDialog
 import com.afollestad.materialdialogs.input.input
-import kotlinx.android.synthetic.main.activity_main.*
 
 
 class MainActivity : AppCompatActivity(){
@@ -16,7 +17,7 @@ class MainActivity : AppCompatActivity(){
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        button_launch_dialog.setOnClickListener {
+        findViewById<Button>(R.id.button_launch_dialog).setOnClickListener {
             showDialog()
         }
 
@@ -37,7 +38,7 @@ class MainActivity : AppCompatActivity(){
     }
 
     private fun setNameToTextView(name: String){
-        text_name.text = name
+        findViewById<TextView>(R.id.text_name).text = name
     }
 
 }
