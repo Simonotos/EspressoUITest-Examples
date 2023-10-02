@@ -6,26 +6,30 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.codingwithmitch.espressouitestexamples.R
-import kotlinx.android.synthetic.main.fragment_directors.*
+import com.codingwithmitch.espressouitestexamples.data.source.MoviesDataSource
+import com.codingwithmitch.espressouitestexamples.data.source.MoviesRemoteDataSource
+import com.codingwithmitch.espressouitestexamples.databinding.FragmentDirectorsBinding
 import java.lang.StringBuilder
 
-class DirectorsFragment : Fragment(){
+class DirectorsFragment : Fragment(R.layout.fragment_directors){
 
-    private val directors: ArrayList<String> = ArrayList()
+    private lateinit var binding : FragmentDirectorsBinding
+
+    private val moviesDataSource : MoviesDataSource = MoviesRemoteDataSource()
+    private var movieID : Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        arguments?.let { args ->
-            directors.addAll(args.get("args_directors") as List<String>)
-        }
+        movieID = requireArguments().getInt("movieID")
     }
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.fragment_directors, container, false)
+    ): View{
+        binding = FragmentDirectorsBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
 
@@ -36,7 +40,12 @@ class DirectorsFragment : Fragment(){
     }
 
     private fun setDirectors(){
-        directors_text.text = stringBuilderForDirectors(directors)
+        val directors = moviesDataSource.getMovie(movieID)?.directors
+
+        binding.apply {
+            if(directors != null)
+                directorsText.text = stringBuilderForDirectors(directors)
+        }
     }
 
     companion object{

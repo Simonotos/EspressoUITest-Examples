@@ -6,7 +6,6 @@ import com.bumptech.glide.request.RequestOptions
 import com.codingwithmitch.espressouitestexamples.R
 import com.codingwithmitch.espressouitestexamples.data.source.MoviesDataSource
 import com.codingwithmitch.espressouitestexamples.data.source.MoviesRemoteDataSource
-import com.codingwithmitch.espressouitestexamples.factory.MovieFragmentFactory
 
 class MainActivity : AppCompatActivity() {
 
@@ -16,22 +15,8 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         initDependencies()
-        supportFragmentManager.fragmentFactory = MovieFragmentFactory(
-            requestOptions,
-            moviesDataSource
-            )
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
-        init()
-    }
-
-    private fun init(){
-        if(supportFragmentManager.fragments.size == 0){
-            supportFragmentManager.beginTransaction()
-                .replace(R.id.container, MovieListFragment::class.java, null)
-                .commit()
-        }
     }
 
     private fun initDependencies(){

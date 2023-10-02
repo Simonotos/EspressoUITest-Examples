@@ -6,18 +6,21 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.codingwithmitch.espressouitestexamples.R
-import kotlinx.android.synthetic.main.fragment_star_actors.*
+import com.codingwithmitch.espressouitestexamples.data.source.MoviesDataSource
+import com.codingwithmitch.espressouitestexamples.data.source.MoviesRemoteDataSource
+import com.codingwithmitch.espressouitestexamples.databinding.FragmentStarActorsBinding
 import java.lang.StringBuilder
 
-class StarActorsFragment : Fragment(){
+class StarActorsFragment : Fragment(R.layout.fragment_star_actors){
 
-    private val starActors: ArrayList<String> = ArrayList()
+    private lateinit var binding : FragmentStarActorsBinding
+
+    private val moviesDataSource : MoviesDataSource = MoviesRemoteDataSource()
+    private var movieID : Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        arguments?.let { args ->
-            starActors.addAll(args.get("args_actors") as List<String>)
-        }
+        movieID = requireArguments().getInt("movieID")
     }
 
     override fun onCreateView(
@@ -25,7 +28,8 @@ class StarActorsFragment : Fragment(){
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_star_actors, container, false)
+        binding = FragmentStarActorsBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -35,7 +39,12 @@ class StarActorsFragment : Fragment(){
     }
 
     private fun setActors(){
-        star_actors_text.text = stringBuilderForStarActors(starActors)
+        val directors = moviesDataSource.getMovie(movieID)?.star_actors
+
+        binding.apply {
+            if(directors != null)
+                starActorsText.text = stringBuilderForStarActors(directors)
+        }
     }
 
     companion object{

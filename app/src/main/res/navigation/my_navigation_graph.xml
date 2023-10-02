@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/my_navigation_graph"
+    app:startDestination="@id/movieListFragment">
+    <fragment
+        android:id="@+id/movieListFragment"
+        android:name="com.codingwithmitch.espressouitestexamples.ui.movie.MovieListFragment"
+        android:label="MovieListFragment">
+        <action
+            android:id="@+id/moveToMovieDetails"
+            app:destination="@id/movieDetailFragment">
+
+            <argument
+                android:name="movieID"
+                app:argType="integer"/>
+        </action>
+    </fragment>
+    <fragment
+        android:id="@+id/movieDetailFragment"
+        android:name="com.codingwithmitch.espressouitestexamples.ui.movie.MovieDetailFragment"
+        android:label="fragment_movie_detail"
+        tools:layout="@layout/fragment_movie_detail">
+        <action
+            android:id="@+id/moveToDirectorsDetails"
+            app:destination="@id/directorsFragment">
+
+            <argument
+                android:name="movieID"
+                app:argType="integer"
+                />
+        </action>
+        <action
+            android:id="@+id/moveToStarsDetails"
+            app:destination="@id/starActorsFragment">
+
+            <argument
+                android:name="movieID"
+                app:argType="integer"
+                />
+        </action>
+    </fragment>
+    <fragment
+        android:id="@+id/directorsFragment"
+        android:name="com.codingwithmitch.espressouitestexamples.ui.movie.DirectorsFragment"
+        android:label="fragment_directors"
+        tools:layout="@layout/fragment_directors" />
+    <fragment
+        android:id="@+id/starActorsFragment"
+        android:name="com.codingwithmitch.espressouitestexamples.ui.movie.StarActorsFragment"
+        android:label="fragment_star_actors"
+        tools:layout="@layout/fragment_star_actors" />
+</navigation>
